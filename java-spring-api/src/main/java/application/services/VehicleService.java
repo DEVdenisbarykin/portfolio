@@ -19,8 +19,6 @@ public class VehicleService {
     }
 
     public List<Vehicle> getVehicles() {
-        List<Vehicle> vehicles = vehicleRepository.findAll();
-        vehicles.forEach(vehicle -> System.out.println(vehicle.toString()));
-        return vehicles;
+        return vehicleRepository.findAll();
     }
 }
