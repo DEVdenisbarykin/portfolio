@@ -20,7 +20,7 @@ public class VehicleService {
     public Vehicle createVehicle(Vehicle vehicle) {
         Optional<Vehicle> existingVehicle = vehicleRepository.findByModelAndBrandAndEngineType(vehicle.getModel(), vehicle.getBrand(), vehicle.getEngineType());
 
-        if (!existingVehicle.isPresent()) {
+        if (existingVehicle.isPresent()) {
             throw new DuplicateVehicleException(String.format("Vehicle %s %s with engine %s already exists.", vehicle.getModel(), vehicle.getBrand(), vehicle.getEngineType()));
         }
 

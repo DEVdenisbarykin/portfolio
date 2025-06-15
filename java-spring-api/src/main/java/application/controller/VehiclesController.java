@@ -27,14 +27,12 @@ public class VehiclesController implements VehiclesApiDocs {
     }
 
     @Override
-    @GetMapping("{engineType}")
-    public List<Vehicle> getVehiclesByEngineType(@PathVariable("engineType") EngineType engineType) {
-        return vehicleService.getVehiclesByEngineType(engineType);
-    }
-
-    @Override
     @GetMapping
-    public List<Vehicle> getVehicles() {
+    public List<Vehicle> getVehicles(@RequestParam(required = false) EngineType engineType) {
+        if (engineType != null) {
+            return vehicleService.getVehiclesByEngineType(engineType);
+        }
+
         return vehicleService.getVehicles();
     }
 
