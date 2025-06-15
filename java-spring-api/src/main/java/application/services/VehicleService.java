@@ -1,11 +1,12 @@
 package application.services;
 
-import application.repositories.VehicleRepository;
+import application.exceptions.DuplicateVehicleException;
+import application.models.EngineType;
 import application.models.Vehicle;
+import application.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -17,10 +18,20 @@ public class VehicleService {
     }
 
     public Vehicle createVehicle(Vehicle vehicle) {
+        Optional<Vehicle> existingVehicle = vehicleRepository.findByModelAndBrandAndEngineType(vehicle.getModel(), vehicle.getBrand(), vehicle.getEngineType());
+
+        if (!existingVehicle.isPresent()) {
+            throw new DuplicateVehicleException(String.format("Vehicle %s %s with engine %s already exists.", vehicle.getModel(), vehicle.getBrand(), vehicle.getEngineType()));
+        }
+
         return vehicleRepository.save(vehicle);
     }
 
-    public Vehicle getVehicleById(Long id) throws NoSuchElementException {
+    public List<Vehicle> getVehiclesByEngineType(EngineType engineType) {
+        return vehicleRepository.findByEngineType(engineType);
+    }
+
+    public Vehicle getVehicleById(Long id) {
         return vehicleRepository.findById(id).get();
     }
 

@@ -14,7 +14,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Vehicle {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING)

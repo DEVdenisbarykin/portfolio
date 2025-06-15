@@ -1,14 +1,9 @@
 package application.controller;
 
-import application.exceptions.ErrorResponse;
+import application.controller.apiDocs.VehiclesApiDocs;
+import application.models.EngineType;
 import application.models.Vehicle;
 import application.services.VehicleService;
-import com.fasterxml.jackson.core.ErrorReportConfiguration;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,40 +13,33 @@ import java.util.List;
 @RequestMapping("/v1/vehicles")
 @Tag(name = "Vehicles API", description = "Endpoints for managing vehicle data, including creation, retrieval," +
         " updating, and deletion of vehicle records.")
-public class VehiclesController {
+public class VehiclesController implements VehiclesApiDocs {
     private final VehicleService vehicleService;
 
     public VehiclesController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
+    @Override
     @GetMapping("{id}")
-    @Operation(
-            summary = "Retrieve a specific vehicle from in-memory database by its id.",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Vehicle found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Vehicle.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "4o4",
-                            description = "Vehicle not found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
-                    )
-            })
-    public Vehicle getVehicleById(@Parameter(description = "ID of the vehicle to retrieve") @PathVariable("id") Long id) {
+    public Vehicle getVehicleById(@PathVariable("id") Long id) {
         return vehicleService.getVehicleById(id);
     }
 
+    @Override
+    @GetMapping("{engineType}")
+    public List<Vehicle> getVehiclesByEngineType(@PathVariable("engineType") EngineType engineType) {
+        return vehicleService.getVehiclesByEngineType(engineType);
+    }
+
+    @Override
     @GetMapping
-    @Operation(summary = "Retrieve all vehicles from in-memory database.")
     public List<Vehicle> getVehicles() {
         return vehicleService.getVehicles();
     }
 
+    @Override
     @PostMapping
-    @Operation(summary = "Create a new vehicle in in-memory database.")
     public Vehicle createVehicle(@RequestBody Vehicle vehicle) {
         return vehicleService.createVehicle(vehicle);
     }
