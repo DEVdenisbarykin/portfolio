@@ -1,5 +1,6 @@
 package application.exceptions.handlers;
 
+import application.exceptions.DuplicateVehicleException;
 import application.exceptions.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,15 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DuplicateVehicleException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateVehicleException(DuplicateVehicleException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                "Trying to create an existing vehicle",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 }
