@@ -5,6 +5,8 @@ import application.models.Vehicle;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -16,6 +18,10 @@ public class VehicleService {
 
     public Vehicle createVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
+    }
+
+    public Vehicle getVehicleById(Long id) throws NoSuchElementException {
+        return vehicleRepository.findById(id).get();
     }
 
     public List<Vehicle> getVehicles() {

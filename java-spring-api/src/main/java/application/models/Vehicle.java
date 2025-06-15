@@ -8,7 +8,11 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Vehicle {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
