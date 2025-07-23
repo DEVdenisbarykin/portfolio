@@ -1,14 +1,15 @@
 package application.controller.apiDocs;
 
+import application.dtos.VehicleDto;
+import application.entities.EngineType;
 import application.exceptions.ErrorResponse;
-import application.models.EngineType;
-import application.models.Vehicle;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,7 @@ public interface VehiclesApiDocs {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Vehicle found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Vehicle.class))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = VehicleDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "4o4",
@@ -30,7 +31,7 @@ public interface VehiclesApiDocs {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
                     )
             })
-    public Vehicle getVehicleById(@PathVariable("id") Long id);
+    public VehicleDto getVehicleById(@PathVariable("id") Long id);
 
     @Operation(
             summary = "Retrieve all vehicles.",
@@ -38,10 +39,10 @@ public interface VehiclesApiDocs {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Vehicles found",
-                            content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Vehicle.class)))
+                            content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = VehicleDto.class)))
                     )
             })
-    public List<Vehicle> getVehicles(@Parameter(description = "Filter vehicles by engine type") @RequestParam(required = false) EngineType engineType);
+    public List<VehicleDto> getVehicles(@Parameter(description = "Filter vehicles by engine type") @RequestParam(required = false) EngineType engineType);
 
     @Operation(
             summary = "Create a new vehicle in in-memory database.",
@@ -49,8 +50,8 @@ public interface VehiclesApiDocs {
                     @ApiResponse(
                             responseCode = "201",
                             description = "Vehicle created",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Vehicle.class))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = VehicleDto.class))
                     )
             })
-    public Vehicle createVehicle(@RequestBody Vehicle vehicle);
+    public VehicleDto createVehicle(@Valid @RequestBody VehicleDto vehicle);
 }

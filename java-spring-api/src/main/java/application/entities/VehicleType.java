@@ -1,4 +1,4 @@
-package application.models;
+package application.entities;
 
 public enum VehicleType {
     CAR,

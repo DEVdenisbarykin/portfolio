@@ -1,7 +1,7 @@
 package application.repositories;
 
-import application.models.EngineType;
-import application.models.Vehicle;
+import application.entities.EngineType;
+import application.entities.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

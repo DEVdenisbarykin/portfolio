@@ -1,8 +1,8 @@
 package application.services;
 
+import application.entities.EngineType;
+import application.entities.Vehicle;
 import application.exceptions.DuplicateVehicleException;
-import application.models.EngineType;
-import application.models.Vehicle;
 import application.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 

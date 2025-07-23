@@ -1,10 +1,12 @@
 package application.controller;
 
 import application.controller.apiDocs.VehiclesApiDocs;
-import application.models.EngineType;
-import application.models.Vehicle;
+import application.dtos.VehicleDto;
+import application.entities.EngineType;
+import application.entities.Vehicle;
 import application.services.VehicleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,23 +24,30 @@ public class VehiclesController implements VehiclesApiDocs {
 
     @Override
     @GetMapping("{id}")
-    public Vehicle getVehicleById(@PathVariable("id") Long id) {
-        return vehicleService.getVehicleById(id);
+    public VehicleDto getVehicleById(@PathVariable("id") Long id) {
+        Vehicle vehicle = vehicleService.getVehicleById(id);
+        return vehicle.toDto();
     }
 
     @Override
     @GetMapping
-    public List<Vehicle> getVehicles(@RequestParam(required = false) EngineType engineType) {
+    public List<VehicleDto> getVehicles(@RequestParam(required = false) EngineType engineType) {
+        List<Vehicle> vehicles;
         if (engineType != null) {
-            return vehicleService.getVehiclesByEngineType(engineType);
+            vehicles = vehicleService.getVehiclesByEngineType(engineType);
+        } else {
+            vehicles = vehicleService.getVehicles();
         }
 
-        return vehicleService.getVehicles();
+        return vehicles.stream()
+                .map(Vehicle::toDto)
+                .toList();
     }
 
     @Override
     @PostMapping
-    public Vehicle createVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.createVehicle(vehicle);
+    public VehicleDto createVehicle(@Valid @RequestBody VehicleDto vehicleDto) {
+        Vehicle vehicle = vehicleService.createVehicle(vehicleDto.toEntity());
+        return vehicle.toDto();
     }
 }
