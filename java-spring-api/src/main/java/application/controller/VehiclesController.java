@@ -50,4 +50,22 @@ public class VehiclesController implements VehiclesApiDocs {
         Vehicle vehicle = vehicleService.createVehicle(vehicleDto.toEntity());
         return vehicle.toDto();
     }
+
+    @Override
+    @DeleteMapping("{id}")
+    public void deleteVehicle(@PathVariable("id") Long id) {
+        vehicleService.deleteVehicle(id);
+    }
+
+    @Override
+    @PutMapping("{id}")
+    public VehicleDto putVehicle(@PathVariable("id") Long id, @Valid @RequestBody VehicleDto vehicleDto) {
+        return vehicleService.updateVehicle(id, vehicleDto);
+    }
+
+    @Override
+    @PatchMapping("{id}")
+    public VehicleDto patchVehicle(@PathVariable("id") Long id, @RequestBody VehicleDto vehicleDto) {
+        return vehicleService.patchVehicle(id, vehicleDto);
+    }
 }

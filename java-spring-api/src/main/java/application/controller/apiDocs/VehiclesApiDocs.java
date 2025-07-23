@@ -26,7 +26,7 @@ public interface VehiclesApiDocs {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = VehicleDto.class))
                     ),
                     @ApiResponse(
-                            responseCode = "4o4",
+                            responseCode = "404",
                             description = "Vehicle not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
                     )
@@ -54,4 +54,52 @@ public interface VehiclesApiDocs {
                     )
             })
     public VehicleDto createVehicle(@Valid @RequestBody VehicleDto vehicle);
+
+    @Operation(
+            summary = "Delete a vehicle by id.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "Successfully deleted a vehicle."
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Vehicle not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+                    )
+            })
+    public void deleteVehicle(@PathVariable("id") Long id);
+
+    @Operation(
+            summary = "Update all information of a Vehicle.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successfully updated a vehicle.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = VehicleDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Vehicle not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+                    )
+            })
+    public VehicleDto putVehicle(@PathVariable("id") Long id, @Valid @RequestBody VehicleDto vehicleDto);
+
+    @Operation(
+            summary = "Partly update the information a Vehicle.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successfully updated a vehicle.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = VehicleDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Vehicle not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+                    )
+            })
+    public VehicleDto patchVehicle(@PathVariable("id") Long id, @RequestBody VehicleDto vehicleDto);
+
 }
