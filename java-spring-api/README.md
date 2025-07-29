@@ -38,6 +38,7 @@ Basic Authentication.
 - Basic Authentication auf geschützten Endpunkten (z. B. DELETE)
 - Import von Fahrzeugdaten via Excel-File.
 
+
 ---
 
 ## Quickstart
@@ -105,7 +106,8 @@ reibungslosen Import sicherzustellen.
 
 Dieser Bulk-Import reduziert den manuellen Aufwand und ermöglicht eine schnelle Integration großer Datenmengen.
 
-## Nächste Schritte
+## Nächste Schritte 
+>>>>>>> main
 
 - Einführung einer neuen Entity "MaintenanceEntry" um Fahrzeug Wartungen zu dokumentieren.
 - Unit-Testing
