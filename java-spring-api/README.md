@@ -17,7 +17,7 @@ Basic Authentication.
 - Spring Data JPA (Repository Layer)
 - Spring Security (Basic Auth)
 - OpenAPI / Swagger (API Dokumentation)
-- Lombok
+- Lombok 
 
 ---
 
@@ -37,7 +37,6 @@ Basic Authentication.
 - Swagger UI für interaktive API-Dokumentation und Testing
 - Basic Authentication auf geschützten Endpunkten (z. B. DELETE)
 - Import von Fahrzeugdaten via Excel-File.
-
 
 ---
 
@@ -107,7 +106,6 @@ reibungslosen Import sicherzustellen.
 Dieser Bulk-Import reduziert den manuellen Aufwand und ermöglicht eine schnelle Integration großer Datenmengen.
 
 ## Nächste Schritte 
->>>>>>> main
 
 - Einführung einer neuen Entity "MaintenanceEntry" um Fahrzeug Wartungen zu dokumentieren.
 - Unit-Testing
