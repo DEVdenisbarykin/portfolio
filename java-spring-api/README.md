@@ -6,6 +6,8 @@ Diese API bietet grundlegende CRUD-Funktionalitäten für das Management von Fah
 Sie unterscheidet klar zwischen Entities und DTOs, nutzt globales Error Handling und schützt sensible Endpunkte mit
 Basic Authentication.
 
+<img width="1447" height="531" alt="image" src="https://github.com/user-attachments/assets/b4e1fce8-32d5-49d9-b060-0124e9539f97" />
+
 ---
 
 ## Technologien
