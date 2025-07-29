@@ -21,6 +21,13 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private EngineType engineType;
 
+    public Vehicle(String brand, String model, VehicleType vehicleType, EngineType engineType) {
+        this.brand = brand;
+        this.model = model;
+        this.vehicleType = vehicleType;
+        this.engineType = engineType;
+    }
+
     public VehicleDto toDto() {
         VehicleDto vehicleDto = new VehicleDto();
         vehicleDto.setVehicleType(this.getVehicleType());

@@ -2,6 +2,7 @@ package application.exceptions.handlers;
 
 import application.exceptions.DuplicateVehicleException;
 import application.exceptions.ErrorResponse;
+import application.exceptions.ImportException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,6 +35,17 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ImportException.class)
+    public ResponseEntity<ErrorResponse> handleImportException(ImportException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Unable to import data.",
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
